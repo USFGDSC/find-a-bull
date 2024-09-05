@@ -1,5 +1,4 @@
 const express = require('express');
-const multer = require('multer');
 const jwt = require('jsonwebtoken');
 const Item = require('../models/itemModel.js');
 const router = express.Router();
@@ -18,20 +17,8 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-// Multer configuration for image upload
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  }
-});
-
-const upload = multer({ storage });
-
 // POST /api/items - Create a new lost/found item report
-router.post('/items', authenticateToken, upload.single('image'), async (req, res) => {
+router.post('/items', authenticateToken, async (req, res) => {
   const { itemName, description, status, foundLocation, depositLocation } = req.body;
 
   if (!itemName || !status || !foundLocation || !depositLocation) {
@@ -39,8 +26,6 @@ router.post('/items', authenticateToken, upload.single('image'), async (req, res
   }
 
   try {
-    const imageUrl = req.file ? `/uploads/${req.file.filename}` : '';
-
     const newItem = new Item({
       userId: req.user.userId, // Get userId from JWT token
       itemName,
@@ -48,7 +33,6 @@ router.post('/items', authenticateToken, upload.single('image'), async (req, res
       status,
       foundLocation,
       depositLocation,
-      imageUrl,
     });
 
     await newItem.save();
@@ -84,16 +68,6 @@ router.get('/items/:id', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-});
-
-// POST /api/upload - Dedicated image upload endpoint
-router.post('/upload', upload.single('image'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ message: 'No image file uploaded' });
-  }
-
-  const imageUrl = `/uploads/${req.file.filename}`;
-  res.json({ imageUrl });
 });
 
 module.exports = router;

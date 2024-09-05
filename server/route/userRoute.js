@@ -1,16 +1,16 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/userModel');
+const User = require('../models/userModel.js');
 const router = express.Router();
 
 // Middleware to protect routes using JWT
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
-  
+
   if (!token) return res.sendStatus(401); // Unauthorized
-  
+
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) return res.sendStatus(403); // Forbidden
     req.user = user;
@@ -21,7 +21,7 @@ const authenticateToken = (req, res, next) => {
 // POST /api/register - User registration
 router.post('/register', async (req, res) => {
   const { uNumber, email, password } = req.body;
-  
+
   // Validate request body
   if (!uNumber || !password) {
     return res.status(400).json({ message: 'U-number and password are required' });
@@ -41,7 +41,7 @@ router.post('/register', async (req, res) => {
     const newUser = new User({
       uNumber,
       email,
-      passwordHash
+      passwordHash,
     });
 
     await newUser.save();
@@ -92,7 +92,7 @@ router.get('/profile', authenticateToken, async (req, res) => {
       uNumber: user.uNumber,
       email: user.email,
       createdAt: user.createdAt,
-      updatedAt: user.updatedAt
+      updatedAt: user.updatedAt,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
