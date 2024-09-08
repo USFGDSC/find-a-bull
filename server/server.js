@@ -13,7 +13,10 @@ const app = express();
 
 // Middleware for parsing JSON requests
 app.use(express.json());
+app.use(express.static('public'));
 
+// Set the views engine
+app.set('view engine', 'ejs');
 
 // Check if MONGO_URI is defined
 if (!process.env.MONGO_URI) {
@@ -33,9 +36,12 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 // Routes
-app.use('/api', userRoutes);
-app.use('/api', itemRoutes);
-
+app.use(userRoutes);
+app.use(itemRoutes);
+// Server test
+app.get('/test', (req, res) => {
+  res.render('test');
+});
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);

@@ -17,23 +17,25 @@ const authenticateToken = (req, res, next) => {
     next();
   });
 };
-
-// POST /api/register - User registration
+// POST /register - User registration
 router.post('/register', async (req, res) => {
-  const { uNumber, email, password } = req.body;
-
+  const {uNumber, email, password} = req.body;
+  console.log(req.body);
   // Validate request body
-  if (!uNumber || !password) {
-    return res.status(400).json({ message: 'U-number and password are required' });
+  if (!uNumber || !email || !password) {
+    return res.status(400).json({ message: 'U-number, email, password are required' });
   }
 
+  // Check if the user already exists
+  const existingEmail = await User.findOne({email});
+  if (existingEmail) {
+    return res.status(409).json({ message: 'User with this email already exists' });
+  }
+  const existingUNumber = await User.findOne({uNumber});
+  if (existingUNumber) {
+    return res.status(409).json({message: 'User with this U-number already exists'});
+  }
   try {
-    // Check if the user already exists
-    const existingUser = await User.findOne({ uNumber });
-    if (existingUser) {
-      return res.status(409).json({ message: 'User with this U-number already exists' });
-    }
-
     // Hash the password
     const passwordHash = await bcrypt.hash(password, 10);
 
@@ -43,15 +45,19 @@ router.post('/register', async (req, res) => {
       email,
       passwordHash,
     });
+    console.log(newUser);
 
     await newUser.save();
-    res.status(201).json({ message: 'User registered successfully' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 
-// POST /api/login - User login and JWT token generation
+    res.status(201).json({message: 'User registered successfully'});
+  }
+  catch (error) {
+  console.error(error); // Optional: Log the error to the server console for debugging
+  res.status(500).json({ error: error.message });
+}
+  });
+
+// POST /login - User login and JWT token generation
 router.post('/login', async (req, res) => {
   const { uNumber, password } = req.body;
 
