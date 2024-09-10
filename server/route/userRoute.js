@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel.js');
 const router = express.Router();
-
 // Middleware to protect routes using JWT
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
@@ -56,37 +55,44 @@ router.post('/register', async (req, res) => {
   res.status(500).json({ error: error.message });
 }
   });
-
+router.get('/register', async (req, res) => {
+  res.render('register')
+})
+router.get('/reSuccess',(req, res) => {
+  res.render('reSuccess');
+});
 // POST /login - User login and JWT token generation
+router.get('/login', (req, res) => {
+  res.render('login');
+});
 router.post('/login', async (req, res) => {
-  const { uNumber, password } = req.body;
-
-  if (!uNumber || !password) {
-    return res.status(400).json({ message: 'U-number and password are required' });
+  const { uNumber, email, password } = req.body;
+  // Validate request body
+  if (!uNumber || !email || !password) {
+    return res.status(400).json({ message: 'U-number, gmail and password are required' });
+  }
+  // Find user by email
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
   }
 
-  try {
-    // Find user by U-number
-    const user = await User.findOne({ uNumber });
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+  // Compare passwords
+  const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
+  if (!isPasswordValid) {
+    return res.status(403).json({ message: 'Invalid U-number or password' });
+  }
 
-    // Compare passwords
-    const isPasswordValid = await bcrypt.compare(password, user.passwordHash);
-    if (!isPasswordValid) {
-      return res.status(403).json({ message: 'Invalid U-number or password' });
-    }
+  // Generate a JWT token
+  const token = jwt.sign({ userId: user._id, uNumber: user.uNumber, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    // Generate a JWT token
-    const token = jwt.sign({ userId: user._id, uNumber: user.uNumber }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    res.json({ message: 'Login successful', token });
-  } catch (error) {
+  res.json({ message: 'Login successful', token });
+  });
+/*  } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
-
+*/
 // Protected route example - Get user profile (JWT token required)
 router.get('/profile', authenticateToken, async (req, res) => {
   try {
