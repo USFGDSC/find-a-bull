@@ -42,17 +42,16 @@ app.use(userRoutes);
 app.use(itemRoutes);
 // Server test
 app.get('/test', (req, res) => {
-  res.render('test');
+    res.render('test');
 });
 
-// Cookies
+// Test cookies
 app.get('/set-cookies', (req, res) => {
   res.cookie('newUser', false);
   res.cookie('isEmployee', true, { maxAge : 1000 * 60 * 60, httpOnly: true });
   res.send('You got the cookies!');
 
 });
-
 app.get('/read-cookies', (req, res) => {
   const cookies = req.cookies
   console.log(cookies)

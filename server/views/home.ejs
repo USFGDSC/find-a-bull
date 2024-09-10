@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost and Found</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        .content {
+            text-align: center;
+            margin: 50px 0;
+        }
+        .content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+        .content p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        .search-bar {
+            margin-bottom: 40px;
+        }
+        .search-bar input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Lost and Found</h1>
+    </header>
+
+    <div class="content">
+        <h2>Find your lost items or report what you found</h2>
+        <p>Our platform connects people who lost and found items. Start by searching below or listing a found item.</p>
+
+        <div class="search-bar">
+            <input type="text" placeholder="Search for lost or found items...">
+            <button type="submit">Search</button>
+        </div>
+
+        <div>
+            <a href="/report-lost"><button>Report Lost Item</button></a>
+            <a href="/report-found"><button>Report Found Item</button></a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; <%= new Date().getFullYear() %> Lost and Found | All rights reserved.</p>
+    </footer>
+</body>
+</html>
