@@ -12,8 +12,9 @@ dotenv.config({ path: '../.env' }); // Adjust the path based on your project str
 // Initialize Express app
 const app = express();
 
-// Middleware for parsing JSON requests
+// Middleware
 app.use(express.static('public'));
+app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(cookieParser());
 
