@@ -26,6 +26,3 @@
 # Ignore system files
 .DS_Store
 Thumbs.db
-
-# Ignore environment files
-.env

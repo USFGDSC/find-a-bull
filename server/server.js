@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const cookieParser = require('cookie-parser');
 const userRoutes = require('./route/userRoute');
 const itemRoutes = require('./route/itemRoute');
 
@@ -12,14 +11,9 @@ dotenv.config({ path: '../.env' }); // Adjust the path based on your project str
 // Initialize Express app
 const app = express();
 
-// Middleware
-app.use(express.static('public'));
-app.set('view engine', 'ejs');
+// Middleware for parsing JSON requests
 app.use(express.json());
-app.use(cookieParser());
 
-// Set the views engine
-app.set('view engine', 'ejs');
 
 // Check if MONGO_URI is defined
 if (!process.env.MONGO_URI) {
@@ -39,27 +33,11 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 
 // Routes
-app.use(userRoutes);
-app.use(itemRoutes);
-// Server test
-app.get('/test', (req, res) => {
-    res.render('test');
-});
+app.use('/api', userRoutes);
+app.use('/api', itemRoutes);
 
-// Test cookies
-app.get('/set-cookies', (req, res) => {
-  res.cookie('newUser', false);
-  res.cookie('isEmployee', true, { maxAge : 1000 * 60 * 60, httpOnly: true });
-  res.send('You got the cookies!');
-
-});
-app.get('/read-cookies', (req, res) => {
-  const cookies = req.cookies
-  console.log(cookies)
-  res.json(cookies)
-})
 // Error handling middleware
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something went wrong!');
 });
