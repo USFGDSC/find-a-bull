@@ -1,138 +1,81 @@
-🔍 Lost and Found API
-Brief Description:
-This project is a Lost and Found API system that allows users to report and retrieve lost/found items. It provides secure user registration, authentication, and item report management, all backed by MongoDB. This project is developed by the Google Developer Student Club at USF.
+# 🔍 Lost and Found API
+Welcome to the ultimate lost and found management system for your community! This API, developed by the Google Developer Student Club at USF, empowers users to report and retrieve lost or found items with ease and security.
+## 🌟 Key Features
 
-📑 Table of Contents
-Project Overview
-Features
-Getting Started
-Installation
-Usage
-Configuration
-Contributing
-License
-Contact
-📜 Project Overview
-The Lost and Found API is designed to allow users to report lost or found items on a centralized platform. Users can register, log in, and manage their lost or found reports. Authentication is handled using JWT tokens for secure access, while the data is stored using MongoDB. This project is ideal for universities or community groups looking for a platform to track lost and found items.
+### 🔐 Secure User Management: Register and authenticate users with robust security measures, including password hashing and JWT token authentication.
+### 📝 Effortless Item Reporting: Users can create, retrieve, and filter lost or found items based on specific criteria like status and location.
+### 🔒 Protected Routes: Ensure data integrity with JWT-protected routes for reporting new items.
+### 🔎 Smart Search Functionality: Easily find items using filters such as item name, status, and location.
+### 🛠 Comprehensive Error Handling: Debug with ease and provide clear feedback to users with our error-handling middleware.
 
-🌟 Features
-User Registration & Authentication: Users can sign up and log in securely. Passwords are hashed, and authentication is handled via JWT tokens.
-Lost/Found Item Reports: Users can create, retrieve, and filter lost or found items based on specific criteria (e.g., status, location).
-JWT-Protected Routes: Ensure that only authenticated users can report new items.
-Efficient Searching: Items can be searched using filters like item name, status, and found/deposit location.
-Error Handling: Comprehensive error-handling middleware for better debugging and user feedback.
-🚀 Getting Started
-To get started with the project, ensure that you have the necessary prerequisites installed. Follow the installation steps below to set up and run the project.
+## 🚀 Getting Started
+###Prerequisites
 
-Prerequisites
-Node.js (version 14.x or later)
-MongoDB instance (local or cloud, e.g., MongoDB Atlas)
-Git
-dotenv library to manage environment variables
-⚙️ Installation
-Clone the repository:
+- Node.js (version 14.x or later)
+- MongoDB instance (local or cloud, e.g., MongoDB Atlas)
+- Git
+- dotenv library for environment variable management
 
-bash
-Copy code
-git clone https://github.com/your-username/lost-and-found-api.git
+## ⚙️ Installation
+
+- Clone the repository:
+bashCopygit clone https://github.com/your-username/lost-and-found-api.git
 cd lost-and-found-api
-Install dependencies:
 
-bash
-Copy code
-npm install
-Set up environment variables:
-Create a .env file in the root directory of your project and add the following variables:
+- Install dependencies:
+bashCopynpm install
 
-bash
-Copy code
-MONGO_URI=your_mongodb_connection_string
+- Set up environment variables:
+Create a .env file in the root directory with the following:
+CopyMONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key_for_jwt
-Start the API Server:
-To run the server, first start the API by running the following command:
 
-bash
-Copy code
-node server.js
-This will run the server on http://localhost:3000.
+- Start the API Server:
+bashCopynode server.js
+The server will run on http://localhost:3000.
 
-🧑‍💻 Usage
-Endpoints
-POST /api/register
-Register a new user.
-Request Body:
+## 🧑‍💻 Usage
+- Endpoints
 
-json
-Copy code
-{
+POST /api/register: Register a new user
+jsonCopy{
   "uNumber": "U12345",
   "email": "user@example.com",
   "password": "your_password"
 }
-POST /api/login
-Log in a user and receive a JWT token.
-Request Body:
 
-json
-Copy code
-{
+POST /api/login: Log in and receive a JWT token
+jsonCopy{
   "uNumber": "U12345",
   "password": "your_password"
 }
-POST /api/items (JWT required)
-Report a new lost/found item.
-Request Body:
 
-json
-Copy code
-{
+POST /api/items (JWT required): Report a new lost/found item
+jsonCopy{
   "itemName": "Backpack",
   "description": "Blue backpack with laptop",
   "status": "lost",
   "foundLocation": "Library",
   "depositLocation": "Front Desk"
 }
-GET /api/items
-Retrieve all reported items with optional filtering (e.g., by status, item name, location).
-Query Params (optional):
 
-status: "lost" or "found"
-foundLocation: String
-itemName: String
-GET /api/items/
+GET /api/items: Retrieve all reported items (with optional filtering)
+Query Params: status, foundLocation, itemName
+GET /api/items/:id: Retrieve specific item details by ID
 
-Retrieve specific item details by ID.
-
-⚙️ Configuration
-The app relies on a .env file to configure important settings. You can use the following keys:
-
-MONGO_URI: The MongoDB connection string (e.g., from MongoDB Atlas).
-JWT_SECRET: A secret string used to sign JWT tokens for user authentication.
-To configure the environment, copy the .env.example file to .env and replace the placeholders with actual values.
-
-🤝 Contributing
+## 🤝 Contributing
 We welcome contributions! Here's how you can help:
 
-Fork the project.
-Create a new branch for your feature or bugfix:
-bash
-Copy code
-git checkout -b feature/your-feature
-Commit your changes:
-bash
-Copy code
-git commit -m "Add some feature"
-Push your changes to the branch:
-bash
-Copy code
-git push origin feature/your-feature
-Open a Pull Request on the main repository.
-📜 License
-This project is licensed under the MIT License. See the LICENSE file for details.
+- Fork the project
+- Create your feature branch (git checkout -b feature/AmazingFeature)
+- Commit your changes (git commit -m 'Add some AmazingFeature')
+- Push to the branch (git push origin feature/AmazingFeature)
+- Open a Pull Request
 
-📧 Contact
-For questions or contributions, please contact:
+## 📜 License
+- This project is licensed under the MIT License. See the LICENSE file for details.
+## 📧 Contact
 
-Project Lead: Google Developer Student Club @ USF
-Email: gdsccs@gmail.com
-GitHub: GDSC USF
+- Project Lead: Google Developer Student Club @ USF
+- Email: gdsccs@gmail.com
+
