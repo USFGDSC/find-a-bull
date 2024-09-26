@@ -2,11 +2,11 @@
 Welcome to the ultimate lost and found management system for your community! This API, developed by the Google Developer Student Club at USF, empowers users to report and retrieve lost or found items with ease and security.
 ## 🌟 Key Features
 
-### 🔐 Secure User Management: Register and authenticate users with robust security measures, including password hashing and JWT token authentication.
-### 📝 Effortless Item Reporting: Users can create, retrieve, and filter lost or found items based on specific criteria like status and location.
-### 🔒 Protected Routes: Ensure data integrity with JWT-protected routes for reporting new items.
-### 🔎 Smart Search Functionality: Easily find items using filters such as item name, status, and location.
-### 🛠 Comprehensive Error Handling: Debug with ease and provide clear feedback to users with our error-handling middleware.
+#### 🔐 Secure User Management: Register and authenticate users with robust security measures, including password hashing and JWT token authentication.
+#### 📝 Effortless Item Reporting: Users can create, retrieve, and filter lost or found items based on specific criteria like status and location.
+#### 🔒 Protected Routes: Ensure data integrity with JWT-protected routes for reporting new items.
+#### 🔎 Smart Search Functionality: Easily find items using filters such as item name, status, and location.
+#### 🛠 Comprehensive Error Handling: Debug with ease and provide clear feedback to users with our error-handling middleware.
 
 ## 🚀 Getting Started
 Prerequisites
@@ -35,22 +35,22 @@ bashCopynode server.js
 The server will run on http://localhost:3000.
 
 ## 🧑‍💻 Usage
-- Endpoints
+Endpoints
 
-POST /api/register: Register a new user
+- POST /api/register: Register a new user
 jsonCopy{
   "uNumber": "U12345",
   "email": "user@example.com",
   "password": "your_password"
 }
 
-POST /api/login: Log in and receive a JWT token
+- POST /api/login: Log in and receive a JWT token
 jsonCopy{
   "uNumber": "U12345",
   "password": "your_password"
 }
 
-POST /api/items (JWT required): Report a new lost/found item
+- POST /api/items (JWT required): Report a new lost/found item
 jsonCopy{
   "itemName": "Backpack",
   "description": "Blue backpack with laptop",
