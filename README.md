@@ -59,9 +59,9 @@ jsonCopy{
   "depositLocation": "Front Desk"
 }
 
-GET /api/items: Retrieve all reported items (with optional filtering)
+- GET /api/items: Retrieve all reported items (with optional filtering)
 Query Params: status, foundLocation, itemName
-GET /api/items/:id: Retrieve specific item details by ID
+- GET /api/items/:id: Retrieve specific item details by ID
 
 ## 🤝 Contributing
 We welcome contributions! Here's how you can help:
