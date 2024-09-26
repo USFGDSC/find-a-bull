@@ -9,7 +9,7 @@ Welcome to the ultimate lost and found management system for your community! Thi
 ### 🛠 Comprehensive Error Handling: Debug with ease and provide clear feedback to users with our error-handling middleware.
 
 ## 🚀 Getting Started
-###Prerequisites
+Prerequisites
 
 - Node.js (version 14.x or later)
 - MongoDB instance (local or cloud, e.g., MongoDB Atlas)
