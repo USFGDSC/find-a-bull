@@ -17,7 +17,7 @@ const authenticateToken = (req, res, next) => {
     next();
   });
 };
-
+`  `                                                  
 // POST /api/register - User registration
 router.post('/register', async (req, res) => {
   const { uNumber, email, password } = req.body;
